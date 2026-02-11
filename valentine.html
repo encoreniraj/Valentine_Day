@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 2026</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: pink;
+    overflow-x: hidden;
+}
+
+h1 {
+    padding: 20px;
+    background-color: hotpink;
+    color: white;
+}
+
+.page {
+    display: none;
+    padding: 40px;
+}
+
+.active {
+    display: block;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+}
+
+.yes {
+    background-color: #ff1493;
+    color: white;
+}
+
+.no {
+    background-color: gray;
+    color: white;
+    position: relative;
+}
+
+.warning {
+    color: darkred;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.rain {
+    position: fixed;
+    top: -20px;
+    font-size: 20px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+#finalScreen {
+    display: none;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#bgImage {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    z-index: -1;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Valentine 2026</h1>
+
+<!-- Question 1 -->
+<div class="page active" id="page1">
+    <h2>Did you think I could be the best version of your man to protect and love you?</h2>
+    <button class="yes" onclick="nextPage(2)">Yes</button>
+    <button class="no" onclick="noClick1()">No</button>
+    <div id="warn1" class="warning"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="page" id="page2">
+    <h2>Have you realized that our love is connected in a way that can find our eternal peace?</h2>
+    <button class="yes" onclick="yesQ2()">Yes</button>
+    <button class="no" onclick="noClick2()">No</button>
+    <span id="emoji2"></span>
+    <div id="warn2" class="warning"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="page" id="page3">
+    <h2>Will you give me a chance and be my valentine?</h2>
+    <button class="yes" onclick="finalLove()">Yes</button>
+    <button class="no" id="noBtn3" onmouseover="moveButton()" onclick="moveButton()">No</button>
+</div>
+
+<!-- Final Screen -->
+<div id="finalScreen">
+    <img src="your-girlfriend-photo.jpg" id="bgImage">
+    <audio id="music" src="je-chhau-timi.mp3"></audio>
+</div>
+
+<script>
+let noCount1 = 0;
+let noCount2 = 0;
+
+function nextPage(pageNumber) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page" + pageNumber).classList.add('active');
+}
+
+function noClick1() {
+    noCount1++;
+    if (noCount1 == 1) {
+        document.getElementById("warn1").innerText =
+        "Remember!!!! There are many things to come up between us, I always loved you unconditionally.";
+    } else {
+        document.getElementById("warn1").innerText =
+        "Please don't do that to me, you're hurting me now.";
+    }
+}
+
+function noClick2() {
+    noCount2++;
+    if (noCount2 == 1) {
+        document.getElementById("warn2").innerText =
+        "Wait what!!!! Let me remind you, our feelings never die, even in the cold phase.";
+    } else {
+        document.getElementById("warn2").innerText =
+        "I will not leave you alone even if you try, 😢";
+        document.getElementById("emoji2").innerText = "😢";
+    }
+}
+
+function yesQ2() {
+    document.getElementById("emoji2").innerText = "😊";
+    nextPage(3);
+}
+
+function moveButton() {
+    let btn = document.getElementById("noBtn3");
+    btn.style.position = "absolute";
+    btn.style.top = Math.random() * 80 + "%";
+    btn.style.left = Math.random() * 80 + "%";
+}
+
+function finalLove() {
+    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+    document.getElementById("finalScreen").style.display = "block";
+    document.getElementById("music").play();
+
+    setInterval(createRain, 300);
+}
+
+function createRain() {
+    const items = ["❤️", "🌸", "I Love You", "Musi"];
+    const element = document.createElement("div");
+    element.classList.add("rain");
+    element.innerText = items[Math.floor(Math.random() * items.length)];
+    element.style.left = Math.random() * 100 + "vw";
+    element.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(element);
+
+    setTimeout(() => {
+        element.remove();
+    }, 5000);
+}
+</script>
+
+</body>
+</html>
